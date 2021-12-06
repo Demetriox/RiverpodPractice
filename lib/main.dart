@@ -4,20 +4,22 @@ import 'my_provider.dart';
 
 void main() {
   runApp(
-    const ProviderScope(child: MyApp()),
+    ProviderScope(
+      child: MyApp(),
+    ),
   );
 }
 
-class MyApp extends ConsumerStatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  ConsumerState<MyApp> createState() => _MyAppState();
+class MyNotifier extends StateNotifier<List<String>> {
+  MyNotifier() : super([]);
+  void addString(String stringToAdd) {
+    state = [...[], stringToAdd];
+  }
 }
 
-class _MyAppState extends ConsumerState<MyApp> {
+class MyApp extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     int myNumber = ref.watch(thirdProvider);
 
     return MaterialApp(
